@@ -4,6 +4,7 @@ package io.javabrains.movie_catalog_service.resources;
 import io.javabrains.movie_catalog_service.models.CatalogItem;
 import io.javabrains.movie_catalog_service.models.Movie;
 import io.javabrains.movie_catalog_service.models.Rating;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -17,13 +18,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/catalog")
 public class MovieCatalogResource {
 
+
+    @Autowired //consumer - it checks for objects if its already defined and uses that instance
+    private RestTemplate restTemplate;
+
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(String userId){
 
         // get all rated movie IDs
-        RestTemplate restTemplate = new RestTemplate();
-
-
 
         List<Rating> ratings = Arrays.asList(
                 new Rating("1234", 4),
